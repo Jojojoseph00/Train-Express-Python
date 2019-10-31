@@ -31,6 +31,34 @@ def split(word):
 
 
 
+while True:
+    firstLetter = str(input("Enter the departure point: "))
+    firstLetter.lower()
+    if (len(firstLetter)>1):
+        print("please only input ONE letter")
+        continue
+    elif not firstLetter.isalpha() == True:
+        print("Please enter a letter")
+        continue
+    else:
+        break
+
+
+while True:
+    secondLetter = str(input("Enter the destination point: "))
+    secondLetter.lower()
+    if not (len(secondLetter)==1):
+        print("please only input ONE letter")
+        continue
+    elif not secondLetter.isalpha() == True:
+        print("Please enter a letter")
+        continue
+    else:
+        break
+
+
+
+
 # Data organisation
 class Graph:
     def __init__(self, edges):
@@ -173,7 +201,7 @@ graph = Graph([
     ("d", "e", 9), ("e", "d", 9), ("d", "c", 9), ("d", "b", 5), ("c", "e", 3)])
 
 # print(graph.dijkstra("a", "e"))
-pathLetters = split(graph.dijkstra("a", "e"))
+pathLetters = split(graph.dijkstra(firstLetter, secondLetter))
 print(pathLetters)
 print(len(pathLetters))
 
