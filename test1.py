@@ -2,10 +2,7 @@
 # Welcome to train express
 ###
 
-import numpy
-import math
-import copy
-import matplotlib.pyplot as plt
+
 import random
 from collections import deque, namedtuple
 
@@ -216,32 +213,3 @@ print("Final letters: "+finalLetters)
 count += distanceDict[finalLetters]
 print("count is " + str(count))
 
-# print(count)
-
-
-# dictionary of distances
-
-
-
-
-
-
-
-
-
-
-
-# def pathLength(pathLetter):
-
-
-
-
-# user input
-
-
-
-
-# Check input
-
-
-#Return shortest path, distance and stations passed
