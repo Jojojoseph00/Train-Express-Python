@@ -2,35 +2,26 @@
 # Welcome to train express
 ###
 
-
 import random
 from collections import deque, namedtuple
 
 
-print("helloWorld!")
 
 
-
-
-
-"First, imports and data formats. The original implementations suggests using namedtuple for storing edge data. We'll " \
-"do exactly that, but we'll add a default value to the cost argument. There are many ways to do that, find what suits " \
-"you best "
-
-# we'll use infinity as a default distance to nodes.
+# set infinity as a default distance to nodes.
 inf = float('inf')
 Edge = namedtuple('Edge', 'start, end, cost')
 
-
+# define edge function
 def make_edge(start, end, cost=1):
     return Edge(start, end, cost)
 
+# splitting characters
 def split(word):
     return [char for char in word]
 
 
-
-
+# user inputs
 while True:
     firstLetter = str(input("Enter the departure point: "))
     firstLetter.lower()
@@ -42,7 +33,6 @@ while True:
         continue
     else:
         break
-
 
 while True:
     secondLetter = str(input("Enter the destination point: "))
@@ -58,7 +48,6 @@ while True:
 
 
 
-
 # Data organisation
 class Graph:
     def __init__(self, edges):
@@ -71,24 +60,18 @@ class Graph:
 
 
 
-
     # finding vertices
-
     @property
     def vertices(self):
         return set(
-            # this piece of magic turns ([1,2], [3,4]) into [1, 2, 3, 4]
-            # the set above makes it's elements unique.
+            # put everything as an individual element in list
             sum(
                 ([edge.start, edge.end] for edge in self.edges), []
             )
         )
 
 
-
-
     # Adding and removing vertices
-
     def get_node_pairs(self, n1, n2, both_ends=True):
         if both_ends:
             node_pairs = [[n1, n2], [n2, n1]]
@@ -115,23 +98,17 @@ class Graph:
 
 
 
-
-
-
     # Find neighbour for each node
-
     @property
     def neighbours(self):
         neighbours = {vertex: set() for vertex in self.vertices}
         for edge in self.edges:
             neighbours[edge.start].add((edge.end, edge.cost))
-
         return neighbours
 
 
 
-
-    # Dijkstra algorithm
+    # Dijkstra algorithm (Sourced from internet)
     def dijkstra(self, source, dest):
         assert source in self.vertices, 'Such source node doesn\'t exist'
 
@@ -200,10 +177,11 @@ graph = Graph([
     ("a", "b", 3), ("b", "a", 3), ("a", "d", 6), ("b", "c", 7), ("c", "d", 8),
     ("d", "e", 9), ("e", "d", 9), ("d", "c", 9), ("d", "b", 5), ("c", "e", 3)])
 
-# print(graph.dijkstra("a", "e"))
+
+# Running algo
 pathLetters = split(graph.dijkstra(firstLetter, secondLetter))
-print(pathLetters)
-print(len(pathLetters))
+print("The best path is: {}".format(pathLetters)) # Getting path
+print("There are {} stops".format(len(pathLetters))) # how many stops
 
 distanceDict = {
     "ab": 3,
@@ -222,22 +200,26 @@ pathlist = []
 for item in pathLetters:
     pathlist.append(item)
 
-print(pathlist[0])
-
+# setup count
 count = 0
 
-for item  in pathlist:
-    letters = ''
-    letters = pathlist[0] + pathlist[1]
-    print(letters)
-    pathlist.pop(0)
-    print(pathlist)
-    print("Hello")
-    # print(pathlist)
-    count += distanceDict[letters]
+# adding pairs to count by checking dictionnaire
+if len(pathlist) > 3:
+    for item  in pathlist:
+        letters = ''
+        letters = pathlist[0] + pathlist[1]
+        pathlist.pop(0)
+        count += distanceDict[letters]
+    finalLetters = pathlist[0] + pathlist[1]
+    count += distanceDict[finalLetters]
 
-finalLetters = pathlist[0] + pathlist[1]
-print("Final letters: "+finalLetters)
-count += distanceDict[finalLetters]
-print("count is " + str(count))
+else:
+    setLetters = pathlist[1] + pathlist [2]
+    finalLetters = pathlist[0] + pathlist[1]
+    count += distanceDict[finalLetters]
+    count += distanceDict[setLetters]
+
+# Add last 2 letters
+
+print("The total distance time is of {} minutes.".format(count))
 
