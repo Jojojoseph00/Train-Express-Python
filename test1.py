@@ -1,8 +1,8 @@
 ###
 # Welcome to train express
+# Calculate best route for non adjacent points
 ###
 
-import random
 from collections import deque, namedtuple
 
 
@@ -157,8 +157,7 @@ class Graph:
         return path
 
 
-# list of stops
-
+# list of routes
 """
         Different train routes:
 A to B takes 3 minutes
@@ -172,7 +171,7 @@ D to C takes 9 minutes
 D to B takes 5 minutes 
 C to E takes 3 minutes
 """
-
+# array for algorithm
 graph = Graph([
     ("a", "b", 3), ("b", "a", 3), ("a", "d", 6), ("b", "c", 7), ("c", "d", 8),
     ("d", "e", 9), ("e", "d", 9), ("d", "c", 9), ("d", "b", 5), ("c", "e", 3)])
@@ -183,6 +182,7 @@ pathLetters = split(graph.dijkstra(firstLetter, secondLetter))
 print("The best path is: {}".format(pathLetters)) # Getting path
 print("There are {} stops".format(len(pathLetters))) # how many stops
 
+# dictionnary for counting route time
 distanceDict = {
     "ab": 3,
     "ba": 3,
@@ -210,16 +210,16 @@ if len(pathlist) > 3:
         letters = pathlist[0] + pathlist[1]
         pathlist.pop(0)
         count += distanceDict[letters]
+    # Add last 2 letters
     finalLetters = pathlist[0] + pathlist[1]
     count += distanceDict[finalLetters]
 
 else:
+    # need this for only 3 letters
     setLetters = pathlist[1] + pathlist [2]
     finalLetters = pathlist[0] + pathlist[1]
     count += distanceDict[finalLetters]
     count += distanceDict[setLetters]
-
-# Add last 2 letters
 
 print("The total distance time is of {} minutes.".format(count))
 
